@@ -1,0 +1,137 @@
+@font-face {
+    font-family: "Proxima Black";
+    src: url("fonts/Proxima Nova Black.otf");
+}
+
+@font-face {
+    font-family: "Proxima Light";
+    src: url("fonts/Proxima Nova Alt Light.otf");
+}
+
+@font-face {
+    font-family: "Proxima Thin";
+    src: url("fonts/Proxima Nova Thin.otf");
+}
+
+@font-face {
+    font-family: "Proxima Regular";
+    src: url("fonts/ProximaNova-Regular.otf");
+}
+
+@font-face {
+    font-family: "Proxima Bold";
+    src: url("fonts/Proxima Nova Bold.otf");
+}
+
+
+/* Font */
+
+body {
+    background-color: #28243D;
+    color: white;
+    font-size:16px;
+    font-family: "Proxima Regular";
+}
+
+.title {
+    font-family: "Proxima Black";
+    font-size: 4.5em;
+    color:rgb(195, 241, 195);
+}
+
+.subtitle {
+    font-family: "Proxima Thin";
+    font-size: 2.5em;
+}
+
+.bodyText {
+    font-family: "Proxima Regular";
+    font-size: 1.4em;
+    width:20em;
+	white-space: wrap;
+}
+
+#vg-tooltip-element {
+    font-family: "Proxima Regular";
+    font-size: 1.2em;
+}
+
+/**/
+
+#main {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width: 1600px;
+    height: fit-content;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Section 1 */
+
+.section {
+    width:inherit;
+    height: 1060px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding:2em 4em 2em 4em;
+}
+
+.sectionGap {
+    margin-bottom: 1.5em;
+}
+
+#textOne {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+#titleTwo {
+    display:flex;
+    width:inherit;
+}
+
+#titleMalaysia {
+    margin-top:-0.4em;
+    margin-right:0.2em;
+}
+
+#box {
+    background-color: white;
+    flex-grow: 1;
+    margin-top:-0.2em;
+    height:0.3em;
+}
+
+#poverty_graph {
+    margin-left:-1.8em;
+    margin-top:1em;
+}
+
+.lineHorizontal {
+    height:0.1em;
+    background-color: rgba(195, 241, 195,0.8);
+}
+
+.cross {
+    width:inherit;
+}
+
+.vertical {
+    width: inherit;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#stateText {
+    margin-top: -0.4em;
+}
+
+#demographic_heatmap {
+    margin-block: 2em;
+}

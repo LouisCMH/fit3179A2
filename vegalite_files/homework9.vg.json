@@ -1,0 +1,43 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Peninsular Malaysia Gross Monthly Household Mean Income by State (1 Jan 2022)",
+    "width": 500,
+    "height": 800,
+    "projection": {"type": "equalEarth"},
+    "data": {
+      "url": "topojson/my.topojson",
+      "format": {"type": "topojson", "feature": "my"}
+    },
+    "transform": [
+      {
+        "lookup": "properties.name",
+        "from": {
+          "data": {
+            "url": "data/hh_income_state.csv"
+          },
+          "key": "state",
+          "fields": ["income_mean", "date"]
+        }
+      },
+      {
+        "filter": "datum.date === '2022-01-01'"
+      },
+      {"calculate": "datum.income_mean", "as": "Mean Income (RM)"}
+    ],
+    "mark": {"type": "geoshape"},
+    "encoding": {
+      "color": {
+        "field": "Mean Income (RM)",
+        "type": "quantitative",
+        "scale": {"scheme": "greens",
+        "type": "log"},
+        "legend": {
+          "title": "Mean Income (RM)"
+        }
+      },
+      "tooltip": [
+        {"field": "properties.name", "type": "nominal", "title": "State"},
+        {"field": "Mean Income (RM)", "type": "quantitative"}
+      ]
+    }
+  }

@@ -1,0 +1,173 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Malaysian Population ('000) Distribution by State and Ethnicity (1 Jan 2022)",
+    "width": 700,
+    "height": 500,
+    "projection": {"type": "equalEarth"},
+    "data": {
+      "url": "data/population_state.csv"
+    },
+    "transform": [
+      {
+        "filter": "datum.ethnicity != 'overall' && datum.age == 'overall' && datum.date === '2022-01-01' && datum.sex == 'both' && (state_selection == null || datum.state == state_selection)"
+      }
+    ],
+    "params": [
+      {
+        "name": "state_selection",
+        "bind": {
+          "input": "select",
+          "options": [
+            null,
+            "Johor",
+            "Kedah",
+            "Kelantan",
+            "Melaka",
+            "Negeri Sembilan",
+            "Pahang",
+            "Perak",
+            "Perlis",
+            "Pulau Pinang",
+            "Sabah",
+            "Sarawak",
+            "Selangor",
+            "Terengganu",
+            "Kuala Lumpur",
+            "Labuan",
+            "Putrajaya"
+          ],
+          "labels": [
+            "Show All",
+            "Johor",
+            "Kedah",
+            "Kelantan",
+            "Melaka",
+            "Negeri Sembilan",
+            "Pahang",
+            "Perak",
+            "Perlis",
+            "Pulau Pinang",
+            "Sabah",
+            "Sarawak",
+            "Selangor",
+            "Terengganu",
+            "Kuala Lumpur",
+            "Labuan",
+            "Putrajaya"
+          ],
+          "name": "State Selection: "
+        }
+      }
+    ],
+    "layer": [
+      {
+        "mark": "bar",
+        "encoding": {
+          "x": {
+            "field": "state",
+            "type": "nominal", 
+            "axis": {
+              "labelAngle": 90,
+              "title": null
+            },
+            "sort": {
+              "field": "population",
+              "op": "sum",
+              "order": "descending"
+            }
+          },
+          "xOffset": {
+            "field": "ethnicity",
+            "type": "nominal",
+            "sort": {
+              "field": "population",
+              "op": "sum",
+              "order": "descending"
+            }
+          },
+          "y": {
+            "field": "population",
+            "type": "quantitative",
+            "axis": {
+              "tickCount": 10
+            }
+          },
+          "color": {
+            "field": "ethnicity",
+            "type": "nominal",
+            "sort": {
+              "field": "population",
+              "op": "sum",
+              "order": "descending"
+            },
+            "legend": {
+              "title": "Ethnicity"
+            }
+          },
+          "opacity": {
+            "condition": {
+            "test": "(datum['state'] == 'Selangor' || datum['state'] == 'Kuala Lumpur' || datum['state'] == 'Johor') || datum.state == state_selection",
+            "value": 1
+            },
+            "value": 0.4
+          },
+          "tooltip": [
+            {"field": "state", "type": "nominal", "title": "State"},
+            {"field": "ethnicity", "type": "nominal", "title": "Ethnicity"},
+            {"field": "population", "type": "quantitative", "title": "Population ('000)", "format": ","}
+          ]
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "dx": 5,
+          "dy": 5,
+          "fontSize": 11.5,
+          "fontStyle": "italic"
+        },
+        "encoding": {
+          "x": {
+            "field": "state",
+            "type": "nominal",
+            "sort": {
+              "field": "population",
+              "op": "sum",
+              "order": "descending"
+            }
+          },
+          "xOffset": {
+            "field": "ethnicity",
+            "type": "nominal",
+            "sort": {
+              "field": "population",
+              "op": "sum",
+              "order": "descending"
+            }
+          },
+          "y": {
+            "field": "population",
+            "type": "quantitative",
+            "aggregate": "sum",
+            "title": null
+          },
+          "text": {"field": "state", "type": "nominal"},
+          "color": {"value": "black"},
+          "opacity": {
+            "condition": [
+              {
+                "test": "((datum['state'] == 'Selangor' || datum['state'] == 'Kuala Lumpur' || datum['state'] == 'Johor') && datum['ethnicity'] == 'Bumiputera Malay')",
+                "value": 1
+              },
+              {
+                "test": "datum.state == state_selection || datum.state != null",
+                "value": 0
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }

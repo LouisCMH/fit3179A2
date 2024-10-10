@@ -1,0 +1,85 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": 650,
+  "height": 350,
+  "view": {
+    "stroke": "transparent" 
+  },
+  "config": {
+    "font": "Proxima Regular"
+  },
+  "data": {
+    "url": "data/hh_poverty_state.csv"
+  },
+  "transform": [
+  ],
+  "mark": {
+    "type": "line",
+    "font": "Proxima Regular",
+    "color": "white",
+    "interpolate": "monotone"
+  },
+  "encoding": {
+    "x": {
+      "field": "date",
+      "type": "temporal",
+      "axis": {
+        "labelFont": "Proxima Light",
+        "labelColor": "white" ,
+        "grid":false,
+        "titleColor": "white",
+        "labelFontSize": 18,
+        "titleFontSize": 18,
+        "tickCount": 5,
+        "title": "Years"
+      }
+    },
+    "y": {
+      "field": "poverty_absolute",
+      "type": "quantitative",
+      "axis": {
+        "labelFont": "Proxima Light",
+        "labelColor": "white"  ,
+        "grid":false,
+        "titleColor": "white",
+        "labelFontSize": 18,
+        "titleFontSize": 18,
+        "tickCount": 5,
+        "title": "Absolute Poverty (%)"
+      }
+    },
+    "color": {
+      "field": "state",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Johor", "Selangor", "Kuala Lumpur", "Pulau Pinang"], 
+        "range": ["orange", "green", "red", "yellow"]
+      },
+      "legend": {
+        "offset":-130,
+        "labelFont": "Proxima Light",
+        "titleColor": "white",
+        "title": "States",
+        "titleFontSize": 18,
+        "labelFontSize": 18,
+        "labelColor":"white"
+      },
+      "condition": [
+        {
+          "test":"datum['state'] != 'Johor' && datum['state'] != 'Selangor' && datum['state'] != 'Kuala Lumpur' && datum['state'] != 'Pulau Pinang'",
+          "value": "white"
+        }
+      ]
+    },
+    "opacity": {
+      "condition": [
+        {
+          "test":"datum['state'] != 'Johor' && datum['state'] != 'Selangor' && datum['state'] != 'Kuala Lumpur' && datum['state'] != 'Pulau Pinang'",
+          "value": 0.1
+        }
+      ],
+      "value":1
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": 700,
+  "height": 1000,
+  "view": {
+    "stroke": "transparent" 
+  },
+  "projection": {"type": "equalEarth"},
+  "config": {
+    "font": "Proxima Regular"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "topojson/my_administrative.topojson",
+        "format": {"type": "topojson", "feature": "mys_admbnda_adm2_unhcr_20210211"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.ADM2_EN",
+          "from": {
+            "data": {
+              "url": "data/hh_income_district.csv"
+            },
+            "key": "district",
+            "fields": ["income_mean", "date"]
+          }
+        },
+        {
+          "filter": "datum.date === '2022-01-01'"
+        },
+        {"calculate": "datum.income_mean", "as": "Mean Income (RM)"},
+        {"calculate": "datum.income_mean < 5000 ? '< RM 5,000' : datum.income_mean < 10000 ? '< RM 10,000' : '>= RM 10,000'",
+        "as": "income_class"}
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#28243D", 
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "color": {
+          "field": "Mean Income (RM)",
+          "type": "quantitative",
+          "scale": {
+            "type": "log", 
+            "scheme": "darkblue",
+            "range": ["#4F4E6B", "#ADFFBF"]
+          },
+          "legend": {
+            "labelColor":"white",
+            "titleColor":"white",
+            "orient": "bottom",
+            "offset":-300,
+            "padding":250,
+            "labelFont": "Proxima Light",
+            "title": "Mean Income (RM)",
+            "titleFontSize": 18,
+            "labelFontSize": 16
+          }
+        },
+        "tooltip": [
+          {"field": "properties.ADM1_EN", "type": "nominal", "title": "State"},
+          {"field": "properties.ADM2_EN", "type": "nominal", "title": "District"},
+          {"field": "Mean Income (RM)", "type": "quantitative"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/centroids_state.csv"
+      },
+      "transform": [
+        {
+          "lookup": "ADM1_EN",
+          "from": {
+            "data": {
+              "url": "data/hh_income_district.csv"
+            },
+            "key": "state",
+            "fields": ["income_mean", "date"]
+          }
+        },
+        {
+          "filter": "datum.date === '2022-01-01'"
+        },
+        {"calculate": "datum.income_mean", "as": "Mean Income (RM)"},
+        {"calculate": "datum.income_mean < 5000 ? '< RM 5,000' : datum.income_mean < 10000 ? '< RM 10,000' : '>= RM 10,000'",
+        "as": "income_class"}
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "fontSize": 24,
+        "dx": -55,
+        "dy": 5,
+        "font": "Proxima Bold",
+        "color": "white"
+      },
+      "encoding": {
+        "longitude": {"field": "Longitude", "type": "quantitative"},
+        "latitude": {"field": "Latitude", "type": "quantitative"},
+        "text": {
+          "field": "ADM1_EN",
+          "type": "nominal"
+        },
+        "opacity": {
+          "condition": [
+            {
+              "test": "datum['ADM1_EN'] == 'Kuala Lumpur' || datum['ADM1_EN'] == 'Pulau Pinang' || datum['ADM1_EN'] == 'Johor'", 
+              "value":1
+            }
+          ],
+          "value":0
+        }
+      }
+    }
+  ]
+}

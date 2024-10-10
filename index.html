@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
+    
+    <link rel="preload" href="css/style.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="css/style.css"></noscript>
+
+    <title>FIT3179 Assignment 2</title>
+</head>
+
+<body>
+    <div id="main">
+        <div class="section">
+            <div id="textOne">
+                <div class="sectionGap">
+                    <div class="title">FINANCIAL GROWTH</div>
+                    <div id="titleTwo" class="subtitle">
+                        <div id="titleMalaysia">IN MALAYSIA: A Retrospective (2022)</div>
+                        <div id="box"></div>
+                    </div>
+                </div>
+                <div class="sectionGap bodyText">
+                    Since it's inception, Malaysia has been gradually climbing the economical ladder through industry booms across many years. 
+                </div>
+                <div class="sectionGap bodyText">
+                    From its early reliance on agriculture and natural resources to becoming a major player in manufacturing and services, 
+                    the country has steadily diversified its economy. 
+                </div>
+                <div class="sectionGap bodyText">
+                    As we explore the nation's financial journey, we’ll  
+                    examine the factors that have shaped its current economic landscape.
+                </div>
+                <div class="sectionGap lineHorizontal"></div>
+                <div class="subtitle">POVERTY RATE CHANGE</div>
+                <div class="bodyText" id="stateText">in selected states</div>
+                <div id="poverty_graph"></div>
+            </div>
+            <div id="choropleth_map">
+            </div>
+        </div>
+        <div class="section">
+            <div class="vertical">
+                <div class="sectionGap lineHorizontal cross"></div>
+                <div id="demographic_heatmap">
+            </div>
+            <div class="sectionGap lineHorizontal cross"></div>
+        </div>
+    </div>
+</body>
+<script src="index.js"></script>
+</html>
