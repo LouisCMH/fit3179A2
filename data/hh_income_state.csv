@@ -1,4 +1,4 @@
-state,date,income_mean,income_median
+state,state_date,state_income_mean,state_income_median
 Johor,1970-01-01,237,
 Johor,1974-01-01,382,269
 Johor,1976-01-01,513,370
